@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/entropy.ogg-4f369b5b6d5ae7587c9646f767fe62b6.oggstr"
+
+[deps]
+
+source_file="res://assets/entropy.ogg"
+dest_files=[ "res://.import/entropy.ogg-4f369b5b6d5ae7587c9646f767fe62b6.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

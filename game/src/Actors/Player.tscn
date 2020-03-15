@@ -1,0 +1,61 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://src/Actors/Player.gd" type="Script" id=1]
+[ext_resource path="res://assets/heart.png" type="Texture" id=2]
+
+[sub_resource type="OccluderPolygon2D" id=1]
+polygon = PoolVector2Array( -47.7193, -80.1353, -45.552, -86.1556, -40.2541, -93.1392, -32.7889, -96.9922, 32.4715, -96.5106, 38.7327, -94.5841, 44.9938, -89.0453, 47.6427, -82.0618, 48.1244, -17.5238, 45.957, -10.2994, 41.6224, -5.00154, 33.9164, 0.296349, -31.1032, -0.18528, -39.5316, -4.2791, -45.0704, -10.0586, -47.4785, -16.5606 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 45.6478, 41.7715 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 52.2752, 10.7155 )
+
+[node name="Player" type="KinematicBody2D"]
+collision_mask = 4
+script = ExtResource( 1 )
+speed = Vector2( 700, 1350 )
+stomp_impulse = 1600.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+process_mode = 0
+limit_left = 0
+limit_bottom = 1080
+limit_smoothed = true
+smoothing_enabled = true
+drag_margin_left = 0.0
+drag_margin_right = 0.0
+editor_draw_limits = true
+editor_draw_drag_margin = true
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 2 )
+offset = Vector2( 0, -48.3333 )
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Sprite"]
+occluder = SubResource( 1 )
+
+[node name="EnemyDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDetector"]
+modulate = Color( 0.337255, 0.223529, 1, 1 )
+position = Vector2( 0, -48 )
+shape = SubResource( 2 )
+
+[node name="StompDetector" type="Area2D" parent="."]
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StompDetector"]
+modulate = Color( 0.337255, 0.223529, 1, 1 )
+shape = SubResource( 3 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+scale = Vector2( 0.5, 0.5 )
+polygon = PoolVector2Array( -33, -91.4, -31.4, -84, -23.4, -84, -21.3, -74, -13.4, -74, -11.3, -64, -3.39999, -64, -1.3, -54, 1, -54, 1, -61.6, 11, -63.7, 11, -70.8, 14.2, -74, 21, -74, 21, -80.8, 24.2, -84, 31, -84, 31, -90.8, 34.2, -94, 77, -94, 77, -91.4, 78.6, -84, 85.8, -84, 89, -80.8, 89, -74, 95.8, -74, 99, -70.8, 99, -64, 105.8, -64, 109, -60.8, 109, 2, 106.4, 2, 99, 3.6, 99, 10.8, 95.8, 14, 89, 14, 89, 20.8, 85.8, 24, 79, 24, 79, 30.8, 75.8, 34, 69, 34, 69, 40.8, 65.8, 44, 59, 44, 59, 50.8, 55.8, 54, 49, 54, 49, 60.8, 45.8, 64, 39, 64, 39, 70.8, 35.8, 74, 29, 74, 29, 80.8, 25.8, 84, 19, 84, 19, 90.8, 15.8, 94, 9, 94, 9, 100.8, 5.8, 104, -7, 104, -7, 101.4, -8.60001, 94, -15.8, 94, -19, 90.8, -19, 84, -25.8, 84, -29, 80.8, -29, 74, -35.8, 74, -39, 70.8, -39, 64, -45.8, 64, -49, 60.8, -49, 54, -55.8, 54, -59, 50.8, -59, 44, -65.8, 44, -69, 40.8, -69, 34, -75.8, 34, -79, 30.8, -79, 24, -85.8, 24, -89, 20.8, -89, 14, -95.8, 14, -99, 10.8, -99, 4, -105.8, 4, -109, 0.800003, -109, -61.6, -99, -63.7, -99, -71.6, -89, -73.7, -89, -81.6, -79, -83.7, -79, -91.2, -77, -92.2, -77, -94, -33, -94 )
+[connection signal="body_entered" from="EnemyDetector" to="." method="_on_EnemyDetector_body_entered"]
+[connection signal="area_entered" from="StompDetector" to="." method="_on_StompDetector_area_entered"]
