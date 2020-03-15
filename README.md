@@ -1,6 +1,6 @@
 # -07-2D-Platformer
 
-#Hi.
+# Hi.
 
 
 so, this is my crappy 2D platformer game.
